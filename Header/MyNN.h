@@ -6,6 +6,6 @@
 #import<time.h>
 
 #import"GeneralFunctions.h" 
-#import"Data.h"
-#import"Neuron.h"
-#import"Layer.h"
+#import"Data/Data.h"
+#import"Objects/Neuron.h"
+#import"Objects/Layer.h"
