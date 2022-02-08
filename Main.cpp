@@ -1,33 +1,26 @@
-#import"MyNN.h"
+//
+// Created by Kaeden Cameron
+// 1,334 LoC (01/31/22)
+//
+
+#include "src/Model.h"
 
 int main()
 {
-	// Set Random Number Seed
-	setRandomSeed();
+    // Assemble data
+    Data dataset;
+    dataset.initializeData("../data/iris.data", 3);
+    Matrix input = dataset.data;
+    Matrix answer = dataset.answers;
 
-	// Batch of vectors of initial inputs
-	std::vector<std::vector<float>> inputs {
-		{1.0, 2.0, 3.0, 2.5},
-		{2.0, 5.0, -1.0, 2.0},
-		{-1.5, 2.7, 3.3, -0.8}
-	};
+    // Create model
+    Model model(2, {4, 3}, {0, 0, 0, 0}, true);
 
-	Data d1;
-	d1.initializeData(1);
+    // Train model
+    model.train_model(input, answer,20000, 4);
 
-	//printOutputs(d1.data);
-	//printOutputs(d1.answers);
-
-	// Construction of layers
-	Layer l1(3, d1.data);
-	Layer l2(4, l1);
-	Layer l3(4, l2);
-	Layer l4(2, l3);
-
-	//printOutputs(d1.answers);
-	//printOutputs(l4.layer_outputs);
-
-	l4.calculateLoss(d1.answers);
-	printVector(l4.loss);
-	//printOutputs(l4.unactivated_layer_outputs);
+    // Test model
+    model.run_model(input);
+    answer = transpose(answer);
+    printMatrix(answer);
 }
