@@ -9,12 +9,12 @@ int main()
 {
     // Assemble data
     Data dataset;
-    dataset.initializeData("../data/iris.data", 3);
+    dataset.initializeData("data/iris.data", 3);
     Matrix input = dataset.data;
     Matrix answer = dataset.answers;
 
     // Create model
-    Model model(2, {4, 3}, {0, 0, 0, 0}, true);
+    Model model(2, {4, 3}, {0, 0, 0, 0});
 
     // Train model
     model.train_model(input, answer,20000, 4);

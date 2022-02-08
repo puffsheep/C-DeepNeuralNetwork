@@ -1,9 +1,10 @@
-#import <vector>
-#import <cmath>
-#import <string>
-#import <fstream>
-#import <sstream>
-#import <map>
+#include <vector>
+#include <cmath>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <map>
 
 #include "Data.h"
 
@@ -115,6 +116,7 @@ bool isFloat(std::string string) {
     return STREAM.eof() && !STREAM.fail();
 }
 
+// Takes a file and parses it to be read into the model
 std::pair<std::vector<std::vector<float>>, std::vector<std::vector<float>>> Data::initializeData(std::string file, int numOfAnswers) {
     std::map<std::string, float> string_map;
 
@@ -162,8 +164,12 @@ std::pair<std::vector<std::vector<float>>, std::vector<std::vector<float>>> Data
 
             index++;
         }
+        FILE.close();
     }
-    FILE.close();
+    else {
+        throw std::invalid_argument("File " + file + " was not found...");
+    }
 
+    std::cout << "Loaded data model: \"" << file << "\" successfully!" << std::endl;
     return dataset;
 }
