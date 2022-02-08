@@ -1,5 +1,5 @@
 # C-DeepNeuralNetwork
-This is a Neural Network created in C++ without using libraries to remove general abstraction behind a neural network.
+This is a Neural Network created in C++ without using machine learning libraries to remove general abstraction behind a neural network.
 
 You can either use preexisting data sets and use the `Data` object to initialize it, or use basic arrays and 2D arrays to generate data. In order to use a dataset, there is one main function that is needed.
 
