@@ -57,13 +57,16 @@ void Model::train(const TData& data, const TData& answers) {
     // 2. Calculate layer errors
     layers[layers.size() - 1].calculateErrorFromAnswer(answers);
     if(DEBUG_MODE) {
-        std::cout << "Error: ";
-        std::cout << "|" << layers[layers.size() - 1].layer_errors[0] << "|" << std::endl << std::endl;
+        std::cout << "Error 1: |" << layers[layers.size() - 1].layer_errors[0] << "|\n" << std::endl;
+        std::cout << "Error 2: |" << layers[layers.size() - 1].layer_errors[1] << "|\n" << std::endl;
+        std::cout << "Error 3: |" << layers[layers.size() - 1].layer_errors[2] << "|\n" << std::endl;
     }
+    
     prev_layer = layers[layers.size() - 1];
 
-    for(int layer = (layers.size() - 2); layer > 0; layer--) {
+    for(int layer = (layers.size() - 2); layer >= 0; layer--) {
         layers[layer].calculateErrorFromNextLayer(prev_layer);
+        prev_layer = layers[layer];
     }
 
     // 3. Backpropagate error through layers

@@ -26,6 +26,9 @@ float getMax(std::vector<float> array);
 Matrix transpose(Matrix& oldVector);
 std::vector<std::vector<float>> transpose(std::vector<std::vector<float>>& oldVector);
 
+// Sum a list of floats
+float sum(List& list);
+
 // Iteration through output float matrix
 void printOutputs(std::vector<float>& outputs);
 

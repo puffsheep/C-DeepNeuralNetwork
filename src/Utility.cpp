@@ -65,6 +65,16 @@ Matrix transpose(Matrix& oldMatrix)
     return newMatrix;
 }
 
+// Sum a list of floats
+float sum(List& list) {
+    float sum = 0;
+    for(float f: list) {
+        sum += f;
+    }
+    
+    return sum;
+}
+
 std::vector<std::vector<float>> transpose(std::vector<std::vector<float>>& oldVector)
 {
 	std::vector<std::vector<float>> newVector;

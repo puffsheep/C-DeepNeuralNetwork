@@ -21,7 +21,8 @@ float Neuron::Sigmoid_ActivationFunc(float a)
 float Neuron::Sigmoid_Derivative(float a)
 {
 	//return (-exp(a)/((1+exp(a))*(1+exp(a))));
-	return (1 / (1 + exp(-a))) * ( 1 - (1 / (1 + exp(-a))));
+	//return (1 / (1 + exp(-a))) * ( 1 - (1 / (1 + exp(-a))));
+	return output * (1 - output);
 }
 
 float Neuron::MSE_Derivative(float output, float answer)
@@ -51,10 +52,12 @@ float Neuron::getErrorFromAnswer(float answer)
 	neuronError = 0;
 	float cost_derivative = MSE_Derivative(output, answer);
 	float error = cost_derivative * Sigmoid_Derivative(unactivatedOutput);
+
     if(DEBUG_MODE) {
         std::cout << "Output: " << output << std::endl;
         std::cout << "Answer: " << answer << std::endl;
     }
+
 	neuronError = error;
 
 	return neuronError;
@@ -63,7 +66,7 @@ float Neuron::getErrorFromAnswer(float answer)
 float Neuron::getErrorFromNextLayer(List next_errors, List next_weights)
 {
     float error = 0;
-    for(int neuron=0;neuron<next_errors.size();neuron++)
+    for(int neuron=0; neuron<next_errors.size(); neuron++)
     {
         error += (next_errors[neuron] * next_weights[neuron]) * Sigmoid_Derivative(unactivatedOutput);
     }
@@ -113,19 +116,12 @@ void Neuron::applyBiasError(float error)
 }
 
 void Neuron::applyWeightError(float error)
-{
-	float inputSum;
-	inputSum = sumInputs(inputs);
-	for(float & weight : weights)
-	{
-        /*if(DEBUG_MODE)
-		    std::cout << "Weight: " << weight << std::endl;*/
+{	
+	for(int i = 0; i < weights.size(); i++) {
+		if(DEBUG_MODE)
+		    std::cout << "Weight delta: " << inputs[i] * error << std::endl;
 
-		weight -= inputSum * error;
-
-        /*if(DEBUG_MODE)
-		    std::cout << "Weight modified: " << weight << std::endl;*/
-        
+		weights[i] -= inputs[i] * error;
 	}
 }
 

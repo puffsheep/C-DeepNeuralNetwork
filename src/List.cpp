@@ -14,7 +14,7 @@ List::List() {
     list = {};
 }
 
-float List::operator[](int index) {
+float& List::operator[](int index) {
     return list[index];
 }
 

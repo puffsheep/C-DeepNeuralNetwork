@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <regex>
 
 #include "Data.h"
 
@@ -138,6 +139,30 @@ std::pair<std::vector<std::vector<float>>, std::vector<std::vector<float>>> Data
             std::string value;
             data.emplace_back();
             answers.emplace_back(std::vector<float>(numOfAnswers));
+
+            /*std::regex delim ("[,\s]");
+            std::regex_iterator<std::string::iterator> rit (line.begin(), line.end(), delim);
+            std::regex_iterator<std::string::iterator> rend;
+
+            while(rit != rend) {
+                float elm;
+                // If the string is a float, add it to the array
+                if(isFloat(rit->str())) {
+                    elm = std::stof(rit->str());
+                    data[index].push_back(elm);
+                }
+
+                // Else, enumerate it and add it to the array
+                else {
+                    if(string_map.find(rit->str()) == string_map.end())
+                        string_map.emplace(rit->str(), string_map.size());
+
+                    elm = string_map[rit->str()];
+                    data[index].push_back(elm);
+                }
+                rit++;
+            }*/
+
             while(getline(STREAM, value, ',')) {
                 float elm;
                 // If the string is a float, add it to the array

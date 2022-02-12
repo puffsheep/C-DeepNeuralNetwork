@@ -14,10 +14,10 @@ int main()
     Matrix answer = dataset.answers;
 
     // Create model
-    Model model(2, {4, 3}, {0, 0, 0, 0});
+    Model model(3, {5, 3, 3}, {0, 0, 0, 0});
 
     // Train model
-    model.train_model(input, answer,20000, 4);
+    model.train_model(input, answer, 20000, 4);
 
     // Test model
     model.run_model(input);

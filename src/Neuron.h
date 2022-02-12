@@ -31,7 +31,7 @@ private:
 	static float Sigmoid_ActivationFunc(float a);
 
 	// Note: Derivative of sigmoid
-	static float Sigmoid_Derivative(float a);
+	float Sigmoid_Derivative(float a); // Non-static because of derivative shortcut
 
 	static float MSE_Derivative(float output, float answer);
 

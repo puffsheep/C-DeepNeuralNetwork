@@ -11,7 +11,7 @@ private:
     std::vector<float> list;
 
 public:
-    float operator[](int);
+    float& operator[](int);
     List(std::vector<float>);
     List();
 

@@ -87,7 +87,7 @@ void Layer::runLayerWithInput(const std::vector<float>& layer_inputs)
 	this->unactivated_layer_outputs.clear();
 
 	for(auto& neuron : layer) {
-		neuron.setInputs(layer_inputs);
+		neuron.setInputs(inputs);
 		layer_outputs.push_back(neuron.getOutput());
 	}
 }
@@ -96,11 +96,11 @@ void Layer::runLayerWithInput(const List& layer_inputs)
 {
     this->inputs = layer_inputs;
 
-    this->layer_outputs = {};
-    this->unactivated_layer_outputs = {};
+    this->layer_outputs.clear();
+    this->unactivated_layer_outputs.clear();
 
     for(auto& neuron : layer) {
-        neuron.setInputs(layer_inputs);
+        neuron.setInputs(inputs);
         layer_outputs.push_back(neuron.getOutput());
     }
 }
@@ -144,7 +144,7 @@ void Layer::calculateErrorFromAnswer(const List& yActual)
 	}
 
 	List neuronAnswers = yActual;
-	for(int neuron=0;neuron<layerSize;neuron++)
+	for(int neuron=0; neuron<layerSize; neuron++)
 	{
 		float neuronErrors = layer[neuron].getErrorFromAnswer(neuronAnswers[neuron]);
 		layer_errors.push_back(neuronErrors);
@@ -161,7 +161,7 @@ void Layer::calculateErrorFromAnswer(const std::vector<float>& yActual)
     }
 
     List neuronAnswers = yActual;
-    for(int neuron=0;neuron<layerSize;neuron++)
+    for(int neuron=0; neuron<layerSize; neuron++)
     {
         float neuronErrors = layer[neuron].getErrorFromAnswer(neuronAnswers[neuron]);
         layer_errors.push_back(neuronErrors);
@@ -172,14 +172,9 @@ void Layer::calculateErrorFromNextLayer(const Layer& nextLayer)
 {
 	layer_errors.clear();
 
-	for(int neuron=0;neuron<layerSize;neuron++)
+	for(int neuron=0; neuron<layerSize; neuron++)
 	{
-		List next_errors;
-		List next_weights;
-
-		next_errors = nextLayer.layer_errors;
-		next_weights = nextLayer.getLayerWeights(neuron);
-		float neuronErrors = layer[neuron].getErrorFromNextLayer(next_errors, next_weights);
+		float neuronErrors = layer[neuron].getErrorFromNextLayer(nextLayer.layer_errors, nextLayer.getLayerWeights(neuron));
 		layer_errors.push_back(neuronErrors);
 	}
     if(DEBUG_MODE)
@@ -210,15 +205,11 @@ float Layer::sumError(List& list)
 }
 
 void Layer::applyErrorsToLayer()
-{
-	float neuronErrors;
-	neuronErrors = sumError(layer_errors);
-
+{		
 	for(int neuron=0;neuron<layerSize;neuron++)
 	{
-		layer[neuron].applyWeightError(neuronErrors);//[neuron]);
-
-		layer[neuron].applyBiasError(neuronErrors);//[neuron]);
+		layer[neuron].applyWeightError(layer_errors[neuron]);
+		layer[neuron].applyBiasError(layer_errors[neuron]);
 	}
 }
 
