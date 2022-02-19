@@ -15,7 +15,7 @@ List::List() {
 }
 
 float& List::operator[](int index) {
-    return list[index];
+    return list.at(index);
 }
 
 std::vector<float> List::toVector() {

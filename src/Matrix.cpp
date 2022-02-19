@@ -27,7 +27,7 @@ void Matrix::emplace_back(const std::vector<float>& list) {
 };
 
 std::vector<float>& Matrix::operator[](int index) {
-    return matrix[index];
+    return matrix.at(index);
 }
 
 std::vector<std::vector<float>>::iterator Matrix::begin() {

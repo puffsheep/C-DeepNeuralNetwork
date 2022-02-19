@@ -14,13 +14,13 @@ int main()
     Matrix answer = dataset.answers;
 
     // Create model
-    Model model(3, {5, 3, 3}, {0, 0, 0, 0});
+    Model model(2, {8, 3}, {0, 0, 0, 0});
 
     // Train model
-    model.train_model(input, answer, 20000, 4);
+    model.train_model(input, answer, 20000, 50);
 
     // Test model
-    model.run_model(input);
-    answer = transpose(answer);
-    printMatrix(answer);
+    model.run_model({5.4,3.4,1.7,0.2}); // 1
+    model.run_model({5.8,2.7,3.9,1.2}); // 2
+    model.run_model({5.7,2.5,5.0,2.0}); // 3
 }
